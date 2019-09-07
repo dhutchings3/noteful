@@ -1,5 +1,5 @@
 import React from 'react'
-import BookContext from './STORE'
+import BookContext from './BookContext'
 import './App.css';
 
 export default class NotePageNav extends React.Component {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import './App.css';
-import BookContext from './STORE';
+import BookContext from './BookContext';
 //import { format } from 'date-fns'
 
 export default class Note extends React.Component {
@@ -15,7 +15,7 @@ export default class Note extends React.Component {
     e.preventDefault()
     const noteId = this.props.id
 
-    fetch(`http://localhost:9090/notes/notes/${noteId}`, {
+    fetch(`http://localhost:9090/notes/${noteId}`, {
       method: 'DELETE',
       headers: {
         'content-type': 'application/json'
@@ -37,7 +37,7 @@ export default class Note extends React.Component {
   }
 
   render() {
-    const { name, id, modified } = this.props
+    const { name, id} = this.props
       return (
         <div className='Note'>
           <h2 className='Note-title'>
@@ -56,7 +56,6 @@ export default class Note extends React.Component {
               <div className='Note-Date-modified'>
               </div>
           </div>
-          )}
         </div>
       )
     }

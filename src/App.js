@@ -4,7 +4,7 @@ import NoteListNav from './NoteListNav';
 import NotePageNav from './NotePageNav';
 import NoteListMain from './NoteListMain';
 import NotePageMain from './NotePageMain';
-import BookContext from './STORE';
+import BookContext from './BookContext';
 import './App.css';
 
 class App extends Component {
@@ -51,7 +51,7 @@ class App extends Component {
                         component={NoteListNav}
                     />
                 ))}
-                <Route path="/note/:noteId" component={NotePageNav} />
+                <Route path='/note/:noteId' component={NotePageNav} />
             </>
         );
     }
@@ -67,7 +67,7 @@ class App extends Component {
                         component={NoteListMain}
                     />
                 ))}
-                <Route path="/note/:noteId" component={NotePageMain} />
+                <Route path='/note/:noteId' component={NotePageMain} />
             </>
         );
     }
@@ -79,7 +79,7 @@ class App extends Component {
             deleteNote: this.deleteNote,
         };
         return (
-            <BookContext.Provider contextValue={contextValue}>
+            <BookContext.Provider value={contextValue}>
             <div className="App">
         
                 <nav className="App__nav">{this.renderNavRoutes()}</nav>

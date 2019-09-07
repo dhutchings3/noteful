@@ -1,6 +1,6 @@
 import React from 'react'
 import Note from './Note'
-import BookContext from './STORE'
+import BookContext from './BookContext'
 import './App.css';
 
 export default class NoteListMain extends React.Component {
@@ -26,19 +26,17 @@ export default class NoteListMain extends React.Component {
                 <ul>
                     {notesForFolder.map(note => 
                     <li key={note.id}>
-                      <Note 
+                      <Note
                         id={note.id}
                         name={note.name}
                         modified={note.modified}
                         />
                     </li>
                     )}
-                </ul>
-                <div className='add-note-button'>
                     <button type='button'>
                     Add Note
                     </button>
-                </div>
+                </ul>
             </section>
         )   
     }
