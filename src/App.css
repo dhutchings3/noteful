@@ -1,6 +1,13 @@
 * {
-    background-color: lightgrey;
     box-sizing: border-box;
+}
+
+html {
+    background: lightgray;
+}
+
+h1 {
+    width: 80%;
 }
 
 a {
@@ -26,9 +33,30 @@ a {
 }
 
 li {
-    border: 1px black solid;
+    border-radius: 15px;
     padding: 30px 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
+
+  
+ul li:nth-child(4n+1) {
+    background-color: #7DCBBF
+}
+  
+li:nth-child(4n+2) {
+    background-color:#9491D1 
+}
+
+li:nth-child(4n+3) {
+    background-color:#FCAD43 
+}
+
+li:nth-child(4n+4) {
+    background-color:#EC527F
+}
+
+   
 
 ul {
     list-style-type: none;
@@ -49,4 +77,9 @@ h1 {
 
 button {
     border: 1px black solid;
+}
+
+.addFolder, .addNote {
+    border: 1px black solid;
+    margin-top: 10px;
 }

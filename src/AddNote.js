@@ -37,7 +37,8 @@ export default class AddNote extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        const { noteName, content, folder } = this.state;
+        //const folderId = folder.selected => folderId
+        const { noteName, content, folder, folderId } = this.state;
         
         fetch(`http://localhost:9090/notes`, {
             method: 'POST',
@@ -45,7 +46,7 @@ export default class AddNote extends React.Component {
                 id: '',
                 name: noteName,
                 modified: '',
-                folderId: '',
+                folderId: folderId,
                 content: content,
                 folder: folder,
             }
@@ -76,7 +77,7 @@ export default class AddNote extends React.Component {
 
     validateFolder() {
         const folder = this.state.folder.value.trim();
-        if ( this.folder === 'Select Folder') {
+        if ( folder === 'Select Folder') {
             return 'Folder selection is required'
         }
     }
@@ -90,7 +91,7 @@ export default class AddNote extends React.Component {
                 <form className='add-note-form' onSubmit={(e)=> this.handleSubmit(e)}>
                     <h2>Add Note</h2>
                     <div className='note-name'>
-                        <label for='note'>Note Name:</label>
+                        <label htmlFor='note'>Note Name:</label>
                         <input 
                             type='text' 
                             id='noteName' 
@@ -101,27 +102,27 @@ export default class AddNote extends React.Component {
                         {this.state.noteName.touched && <ValidationError message={noteNameError} />}
                     </div>
                     <div className='content-area'>
-                        <label for='content'>Content:</label>
+                        <label htmlFor='content'>Content:</label>
                             <input 
                                 type='text' 
                                 id='content' 
                                 defaultValue='Note context goes here' 
                                 name='content'
-                                onChange={e => this.updateContext(e.target.value)}
+                                onChange={e => this.updateContent(e.target.value)}
                             />
                         {this.state.content.touched && <ValidationError message={contentError} />}
                     </div>
                     <div>
-                        <label for='folder'>Folder:</label>
+                        <label htmlFor='folder'>Folder:</label>
                         <select 
-                            class='folder-select'
+                            className='folder-select'
                             name = 'folder'
                             onSelect={e => this.updateFolder(e.target.value)}
                         >
                             <option>Select Folder</option>
-                            <option>{this.folder}</option>
-                            <option>{this.folder}</option>
-                            <option>{this.folder}</option>
+                            {folders.map(folder=>
+                            <option>{folder.name}</option>
+                            )}
 
                         {this.state.folder.touched && <ValidationError message={folderError} />}
                         </select>

@@ -22,9 +22,11 @@ export default class AddFolder extends React.Component {
         
         fetch(`http://localhost:9090/folders`, {
             method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
             body: {
-                id: '',
-                name: folderName
+                'name': folderName
             }
         });
 
