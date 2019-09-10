@@ -3,7 +3,6 @@ import ValidationError from './ValidationError'
 import NoteContext from './NoteContext'
 
 export default class AddNote extends React.Component {
-    static contextType = NoteContext;
     constructor(props) {
         super(props);
             this.state = {
@@ -22,16 +21,18 @@ export default class AddNote extends React.Component {
         };
     }
 
+    static contextType = NoteContext;
+
     updateName(noteName) {
         this.setState({ noteName: { value: noteName, touched: true } });
     }
 
-    updateName(content) {
-        this.setState({ noteName: { value: content, touched: true } });
+    updateContent(content) {
+        this.setState({ content: { value: content, touched: true } });
     }
 
-    updateName(folder) {
-        this.setState({ noteName: { value: folder, touched: true } });
+    updateFolder(folder) {
+        this.setState({ folder: { value: folder, touched: true } });
     }
 
     handleSubmit(e) {
@@ -74,17 +75,17 @@ export default class AddNote extends React.Component {
     }
 
     validateFolder() {
-        const noteName = this.state.noteName.value.trim();
-        if ( this.folder.name.selected === 0) {
+        const folder = this.state.folder.value.trim();
+        if ( this.folder === 'Select Folder') {
             return 'Folder selection is required'
         }
     }
 
     render() {
-        const { folders=[] } = context
-        const noteNameError = validateName();
-        const contentError = validateContent();
-        const folderError = folderError();
+        const { folders=[] } = this.context
+        const noteNameError = this.validateName();
+        const contentError = this.validateContent();
+        const folderError = this.validateFolder();
         return (
                 <form className='add-note-form' onSubmit={(e)=> this.handleSubmit(e)}>
                     <h2>Add Note</h2>
@@ -103,9 +104,9 @@ export default class AddNote extends React.Component {
                         <label for='content'>Content:</label>
                             <input 
                                 type='text' 
-                                id='context' 
+                                id='content' 
                                 defaultValue='Note context goes here' 
-                                name='context'
+                                name='content'
                                 onChange={e => this.updateContext(e.target.value)}
                             />
                         {this.state.context.touched && <ValidationError message={contentError} />}
@@ -117,6 +118,7 @@ export default class AddNote extends React.Component {
                             name = 'folder'
                             onSelect={e => this.updateFolder(e.target.value)}
                         >
+                            <option>Select Folder</option>
                             <option>{this.folder.name}</option>
                             <option>{this.folder.name}</option>
                             <option>{this.folder.name}</option>
