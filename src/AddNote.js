@@ -109,7 +109,7 @@ export default class AddNote extends React.Component {
                                 name='content'
                                 onChange={e => this.updateContext(e.target.value)}
                             />
-                        {this.state.context.touched && <ValidationError message={contentError} />}
+                        {this.state.content.touched && <ValidationError message={contentError} />}
                     </div>
                     <div>
                         <label for='folder'>Folder:</label>
@@ -119,9 +119,9 @@ export default class AddNote extends React.Component {
                             onSelect={e => this.updateFolder(e.target.value)}
                         >
                             <option>Select Folder</option>
-                            <option>{this.folder.name}</option>
-                            <option>{this.folder.name}</option>
-                            <option>{this.folder.name}</option>
+                            <option>{this.folder}</option>
+                            <option>{this.folder}</option>
+                            <option>{this.folder}</option>
 
                         {this.state.folder.touched && <ValidationError message={folderError} />}
                         </select>
