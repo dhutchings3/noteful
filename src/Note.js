@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import './App.css';
-import BookContext from './BookContext';
+import NoteContext from './NoteContext';
 //import { format } from 'date-fns'
 
 export default class Note extends React.Component {
@@ -9,7 +9,7 @@ export default class Note extends React.Component {
     onDeleteNote: () => {},
   }
 
-  static contextType = BookContext;
+  static contextType = NoteContext;
 
   handleClickDelete = e => {
     e.preventDefault()
@@ -48,7 +48,7 @@ export default class Note extends React.Component {
           <button 
             className='delete-button'
             type='button'
-            onClick={this.deleteNoteRequest}
+            onClick={this.handleClickDelete}
           >
           Delete Note
           </button>

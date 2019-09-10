@@ -4,7 +4,9 @@ import NoteListNav from './NoteListNav';
 import NotePageNav from './NotePageNav';
 import NoteListMain from './NoteListMain';
 import NotePageMain from './NotePageMain';
-import BookContext from './BookContext';
+import NoteContext from './NoteContext';
+import AddNote from './AddNote'
+import AddFolder from './AddFolder'
 import './App.css';
 
 class App extends Component {
@@ -68,6 +70,8 @@ class App extends Component {
                     />
                 ))}
                 <Route path='/note/:noteId' component={NotePageMain} />
+                <Route path='/add-note' component={AddNote} />
+                <Route path='/add-folder' component={AddFolder} />
             </>
         );
     }
@@ -79,7 +83,7 @@ class App extends Component {
             deleteNote: this.deleteNote,
         };
         return (
-            <BookContext.Provider value={contextValue}>
+            <NoteContext.Provider value={contextValue}>
             <div className="App">
         
                 <nav className="App__nav">{this.renderNavRoutes()}</nav>
@@ -90,7 +94,7 @@ class App extends Component {
                 </header>
                 <main className="App__main">{this.renderMainRoutes()}</main>
             </div>
-            </BookContext.Provider>
+            </NoteContext.Provider>
         );
     }
 }

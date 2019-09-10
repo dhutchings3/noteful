@@ -1,5 +1,5 @@
 import React from 'react'
-import BookContext from './BookContext'
+import NoteContext from './NoteContext'
 import './App.css';
 
 export default class NotePageNav extends React.Component {
@@ -11,7 +11,7 @@ export default class NotePageNav extends React.Component {
         params: {}
       }
     }
-  static contextType = BookContext;
+  static contextType = NoteContext;
   
   render() {
     const findFolder = (folders=[], folderId) =>

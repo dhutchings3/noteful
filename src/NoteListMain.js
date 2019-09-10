@@ -1,6 +1,7 @@
 import React from 'react'
 import Note from './Note'
-import BookContext from './BookContext'
+import { NavLink } from 'react-router-dom'
+import NoteContext from './NoteContext'
 import './App.css';
 
 export default class NoteListMain extends React.Component {
@@ -10,7 +11,7 @@ export default class NoteListMain extends React.Component {
         }
     }
 
-    static contextType = BookContext;
+    static contextType = NoteContext;
 
     render() {
         const getNotesForFolder = (notes=[], folderId) => (
@@ -33,9 +34,12 @@ export default class NoteListMain extends React.Component {
                         />
                     </li>
                     )}
-                    <button type='button'>
-                    Add Note
-                    </button>
+                    <NavLink
+                    className='addNote'
+                    to={`/add-note`}
+                    >
+                        Add Note
+                    </NavLink>
                 </ul>
             </section>
         )   
