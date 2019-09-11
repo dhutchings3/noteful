@@ -49,13 +49,13 @@ export default class AddNote extends React.Component {
             body: JSON.stringify ({
                 name: noteName,
                 modified: '',
-                folderId: this.props.folderId,
+                folderId: this.folderId,
                 content: this.content
             })
         })
             .then(response => response.json())
             .then(responseJson => {
-                console.log('responseJson', responseJson)
+                console.log('responseJson', responseJson.id, responseJson.noteName, responseJson.folderId, responseJson.content)
             this.context.updateNote(noteName.value)
             this.props.onUpdateNote(noteName.value)
             this.props.history.goBack();
