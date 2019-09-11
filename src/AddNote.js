@@ -54,11 +54,10 @@ export default class AddNote extends React.Component {
             })
         })
             .then(response => response.json())
-            console.log('resonseJson')
             .then(responseJson => {
-                console.log('responseJson', responseJson.id, noteName.noteName.value)
-            this.context.updateName(noteName.noteName.value, responseJson.id )
-            this.props.onUpdateName(noteName)
+                console.log('responseJson', responseJson)
+            this.context.updateNote(noteName.value)
+            this.props.onUpdateNote(noteName.value)
             this.props.history.goBack();
         })
         
