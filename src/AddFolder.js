@@ -1,18 +1,13 @@
 import React from 'react'
 import ValidationError from './ValidationError'
-import { componentDidMount } from'./App'
-import App from './App';
+import NoteContext from './NoteContext'
 
 export default class AddFolder extends React.Component {
-    constructor(props) {
-        super(props);
-            this.state = {
-            folderName: {
-                value: "",
-                touched: false,
-            }
-        }
-    }
+    static defaultProps ={
+        onUpdateFolder: () => {},
+      }
+    
+    static contextType = NoteContext;
 
     updateName(folderName) {
         this.setState({ folderName: { value: folderName, touched: true } });
@@ -29,7 +24,10 @@ export default class AddFolder extends React.Component {
         })
             .then(response => response.json())
             .then(responseJson => console.log(responseJson, 'responseJson'))
-        this.props.history.goBack();
+        //this.props.history.goBack();
+        this.context.updateFolder(folderName)
+        this.props.onUpdateFolder(folderName)
+        this.props.history.push('/')
     }
 
     validateName() {

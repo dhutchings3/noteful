@@ -38,15 +38,23 @@ class App extends Component {
             });
     }
 
-    componentDidUpdate() {
-        
-    }
-
     deleteNote = noteId => {
         this.setState({
             notes: this.state.notes.filter( note => note.id !== noteId)
         });
     };
+
+    updateFolder = folderName => {
+        this.setState({
+            folders: this.state.folders.filter( folder => folder.name !== folderName)
+        });
+    }
+
+    updateNote = noteId => {
+        this.setState({
+            folders: this.state.notes.filter( note => note.id !== noteId)
+        });
+    }
 
     renderNavRoutes() {
         return (
@@ -87,8 +95,8 @@ class App extends Component {
             folders: this.state.folders,
             notes: this.state.notes,
             deleteNote: this.deleteNote,
-            addNote: this.addNote,
-            addFolder: this.addFolder
+            updateNote: this.updateNote,
+            updateFolder: this.updateFolder
         };
         return (
             <NoteContext.Provider value={contextValue}>
