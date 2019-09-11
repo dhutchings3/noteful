@@ -1,5 +1,7 @@
 import React from 'react'
 import ValidationError from './ValidationError'
+import { componentDidMount } from'./App'
+import App from './App';
 
 export default class AddFolder extends React.Component {
     constructor(props) {
@@ -19,18 +21,15 @@ export default class AddFolder extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         const folderName = this.state
+        console.log('Folder Name: ', folderName);
         
         fetch(`http://localhost:9090/folders`, {
             method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: {
-                'name': folderName
-            }
-        });
-
-        console.log('Folder Name: ', folderName.value);
+            body: JSON.stringify({ name: folderName })
+        })
+            .then(response => response.json())
+            .then(responseJson => console.log(responseJson, 'responseJson'))
+        this.props.history.goBack();
     }
 
     validateName() {

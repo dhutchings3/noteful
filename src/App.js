@@ -38,6 +38,10 @@ class App extends Component {
             });
     }
 
+    componentDidUpdate() {
+        
+    }
+
     deleteNote = noteId => {
         this.setState({
             notes: this.state.notes.filter( note => note.id !== noteId)
@@ -83,6 +87,8 @@ class App extends Component {
             folders: this.state.folders,
             notes: this.state.notes,
             deleteNote: this.deleteNote,
+            addNote: this.addNote,
+            addFolder: this.addFolder
         };
         return (
             <NoteContext.Provider value={contextValue}>
