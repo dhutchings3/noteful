@@ -3,6 +3,15 @@ import ValidationError from './ValidationError'
 import NoteContext from './NoteContext'
 
 export default class AddFolder extends React.Component {
+    constructor(props) {
+        super(props);
+            this.state = {
+            folderName: {
+                value: "",
+                touched: false,
+            }
+        }
+    }
     static defaultProps ={
         onUpdateFolder: () => {},
       }
@@ -27,7 +36,7 @@ export default class AddFolder extends React.Component {
         //this.props.history.goBack();
         this.context.updateFolder(folderName)
         this.props.onUpdateFolder(folderName)
-        this.props.history.push('/')
+        this.props.history.goBack();
     }
 
     validateName() {

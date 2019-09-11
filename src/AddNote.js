@@ -21,6 +21,10 @@ export default class AddNote extends React.Component {
         };
     }
 
+    static defaultProps ={
+        onUpdateNote: () => {},
+      }
+
     static contextType = NoteContext;
 
     updateName(noteName) {
@@ -53,6 +57,8 @@ export default class AddNote extends React.Component {
         })
             .then(response => response.json())
             .then(responseJson => console.log(responseJson, 'responseJson'))
+            this.context.updateName(noteName)
+            this.props.onUpdateName(noteName)
             this.props.history.goBack();
     }
 
