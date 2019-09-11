@@ -3,15 +3,16 @@ import ValidationError from './ValidationError'
 import NoteContext from './NoteContext'
 
 export default class AddFolder extends React.Component {
-    constructor(props) {
-        super(props);
-            this.state = {
-            folderName: {
-                value: "",
-                touched: false,
-            }
-        }
-    }
+    // constructor(props) {
+    //     super(props);
+    //         this.state = {
+    //         folderName: {
+    //             value: "",
+    //             touched: false,
+    //         }
+    //     }
+    // }
+
     static defaultProps ={
         onUpdateFolder: () => {},
       }
@@ -32,11 +33,16 @@ export default class AddFolder extends React.Component {
             body: JSON.stringify({ name: folderName })
         })
             .then(response => response.json())
-            .then(responseJson => console.log(responseJson, 'responseJson'))
+            .then(responseJson => {
+                console.log('responseJson', responseJson.id, folderName.folderName.value)
+                this.context.updateFolder(folderName.folderName.value, responseJson.id)
+                this.props.onUpdateFolder(folderName)
+                this.props.history.goBack();
+        })
         //this.props.history.goBack();
-        this.context.updateFolder(folderName)
-        this.props.onUpdateFolder(folderName)
-        this.props.history.goBack();
+        //this.context.updateFolder(folderName, responseJson.Id)
+        //this.props.onUpdateFolder(folderName)
+        //this.props.history.goBack();
     }
 
     validateName() {

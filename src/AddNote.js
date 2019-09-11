@@ -42,24 +42,26 @@ export default class AddNote extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         //const folderId = folder.selected => folderId
-        const { noteName, content, folder, folderId } = this.state;
+        const { noteName } = this.state;
         
         fetch(`http://localhost:9090/notes`, {
             method: 'POST',
             body: JSON.stringify ({
-                id: '',
                 name: noteName,
                 modified: '',
-                folderId: folderId,
-                content: content,
-                folder: folder,
+                folderId: this.props.folderId,
+                content: this.content
             })
         })
             .then(response => response.json())
-            .then(responseJson => console.log(responseJson, 'responseJson'))
-            this.context.updateName(noteName)
+            console.log('resonseJson')
+            .then(responseJson => {
+                console.log('responseJson', responseJson.id, noteName.noteName.value)
+            this.context.updateName(noteName.noteName.value, responseJson.id )
             this.props.onUpdateName(noteName)
             this.props.history.goBack();
+        })
+        
     }
 
     validateName() {

@@ -44,15 +44,22 @@ class App extends Component {
         });
     };
 
-    updateFolder = folderName => {
+    updateFolder = (name, id ) => {
+        console.log('updateFolder', id)
+        let newFolders = this.state.folders;
+        newFolders.push({id, name})
+        console.log(newFolders);
         this.setState({
-            folders: this.state.folders.filter( folder => folder.name !== folderName)
+            folders: newFolders
         });
     }
 
-    updateNote = noteId => {
+    updateNote = (id, name, modified, folderId, content) => {
+        console.log('updateNote', id)
+        let newNotes = this.state.notes;
+        newNotes.push({id, name, modified, folderId, content})
         this.setState({
-            folders: this.state.notes.filter( note => note.id !== noteId)
+            notes: newNotes
         });
     }
 
@@ -91,6 +98,7 @@ class App extends Component {
     }
 
     render() {
+        console.log(this.state.folders)
         const contextValue = {
             folders: this.state.folders,
             notes: this.state.notes,
