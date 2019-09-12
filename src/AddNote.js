@@ -44,15 +44,15 @@ export default class AddNote extends React.Component {
         //const folderId = folder.selected => folderId
         const { noteName, content, folder }  = this.state;
 
-     
-        console.log(noteName, folder, content)
+        console.log(noteName.value, folder.value, content.value)
+
         fetch(`http://localhost:9090/notes`, {
             method: 'POST',
             body: JSON.stringify ({
-                name: noteName,
-                modified: Date.now(),
-                folderId: folder,
-                content: content
+                name: noteName.value,
+                //modified: Date.now(),
+                folderId: folder.value,
+                content: content.value
             })
         })
             .then(response => response.json())

@@ -48,16 +48,15 @@ class App extends Component {
         console.log('updateFolder', id)
         let newFolders = this.state.folders;
         newFolders.push({id, name})
-        console.log(newFolders);
         this.setState({
             folders: newFolders
         });
     }
 
-    addNote = (responseJson) => {
-        console.log(responseJson.id)
+    addNote = (id, noteName, folderId, content) => {
+        console.log(id, noteName, folderId, content)
         let newNotes = this.state.notes;
-        newNotes.push(responseJson)
+        newNotes.push({id, noteName, folderId, content})
         this.setState({
             notes: newNotes
         });
