@@ -42,23 +42,24 @@ export default class AddNote extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         //const folderId = folder.selected => folderId
-        const { noteName } = this.state;
+        const { noteName, content, folder }  = this.state;
+
         
         fetch(`http://localhost:9090/notes`, {
             method: 'POST',
             body: JSON.stringify ({
                 name: noteName,
                 modified: '',
-                folderId: this.folderId,
-                content: this.content
+                folderId: folder.folderId,
+                content: content
             })
         })
             .then(response => response.json())
             .then(responseJson => {
                 console.log('responseJson', responseJson.id, responseJson.noteName, responseJson.folderId, responseJson.content)
-            this.context.updateNote(noteName.value)
-            this.props.onUpdateNote(noteName.value)
-            this.props.history.goBack();
+            this.context.updateNote(responseJson.id, responseJson.noteName)
+            this.props.onUpdateNote(responseJson.id, responseJson.noteName)
+            this.props.history.goBack()
         })
         
     }
@@ -83,7 +84,7 @@ export default class AddNote extends React.Component {
 
     validateFolder() {
         const folder = this.state.folder.value.trim();
-        if ( folder === 'Select Folder') {
+        if ( folder.name === 'Select Folder') {
             return 'Folder selection is required'
         }
     }
