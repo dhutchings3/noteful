@@ -54,10 +54,10 @@ class App extends Component {
         });
     }
 
-    updateNote = (id, name, modified, folderId, content) => {
-        console.log('updateNote', id)
+    addNote = (responseJson) => {
+        console.log(responseJson.id)
         let newNotes = this.state.notes;
-        newNotes.push({id, name, modified, folderId, content})
+        newNotes.push(responseJson)
         this.setState({
             notes: newNotes
         });
@@ -103,7 +103,7 @@ class App extends Component {
             folders: this.state.folders,
             notes: this.state.notes,
             deleteNote: this.deleteNote,
-            updateNote: this.updateNote,
+            addNote: this.addNote,
             updateFolder: this.updateFolder
         };
         return (

@@ -44,21 +44,21 @@ export default class AddNote extends React.Component {
         //const folderId = folder.selected => folderId
         const { noteName, content, folder }  = this.state;
 
-        
+     
+        console.log(noteName, folder, content)
         fetch(`http://localhost:9090/notes`, {
             method: 'POST',
             body: JSON.stringify ({
                 name: noteName,
-                modified: '',
-                folderId: folder.folderId,
+                modified: Date.now(),
+                folderId: folder,
                 content: content
             })
         })
             .then(response => response.json())
             .then(responseJson => {
-                console.log('responseJson', responseJson.id, responseJson.noteName, responseJson.folderId, responseJson.content)
-            this.context.updateNote(responseJson.id, responseJson.noteName)
-            this.props.onUpdateNote(responseJson.id, responseJson.noteName)
+                console.log('responseJson', responseJson)
+            this.context.addNote(responseJson)
             this.props.history.goBack()
         })
         
@@ -124,11 +124,11 @@ export default class AddNote extends React.Component {
                         <select 
                             className='folder-select'
                             name = 'folder'
-                            onSelect={e => this.updateFolder(e.target.value)}
+                            onChange={e => this.updateFolder(e.target.value)}
                         >
                             <option>Select Folder</option>
                             {folders.map(folder=>
-                            <option>{folder.name}</option>
+                            <option value = {folder.id}>{folder.name}</option>
                             )}
 
                         {this.state.folder.touched && <ValidationError message={folderError} />}
