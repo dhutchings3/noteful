@@ -5,16 +5,14 @@ import NoteContext from './NoteContext'
 export default class AddFolder extends React.Component {
     constructor(props) {
         super(props);
-            this.state = {
-            folderName: {
-                value: "",
-                touched: false,
-            }
+        this.state = {
+            folderName: '',
+            touched: false,
         }
     }
 
     static defaultProps ={
-        onUpdateFolder: () => {},
+        addFolder: () => {},
       }
     
     static contextType = NoteContext;
@@ -22,8 +20,8 @@ export default class AddFolder extends React.Component {
     updateName(folderName) {
         this.setState({ 
             folderName: folderName, 
-            touched: true } 
-        );
+            touched: true,
+        });
     }
     handleSubmit(e) {
         e.preventDefault();
@@ -44,7 +42,7 @@ export default class AddFolder extends React.Component {
             })
             .then(folder => {
                 this.context.addFolder(folder)
-                this.props.history.push(`/folder/${folder.id}`)
+                this.props.history.push(`/`)
             })
             .catch(error => {
                 console.error({ error })
@@ -52,7 +50,7 @@ export default class AddFolder extends React.Component {
     }
 
     validateName() {
-        const name = this.state.folderName.value.trim();
+        const name = this.state.folderName.toString().trim();
         if (name.length === 0) {
             return 'Name is required';
         } else  if (name.length < 3) {
@@ -74,7 +72,7 @@ export default class AddFolder extends React.Component {
                         name='folderName'
                         onChange={e => this.updateName(e.target.value)}
                     />
-                    {this.state.folderName.touched && <ValidationError message={nameError} />}
+                    {this.state.touched && <ValidationError message={nameError} />}
                     <button 
                         type='submit' 
                         className='addFolder-button'

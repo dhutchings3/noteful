@@ -83,3 +83,7 @@ button {
     border: 1px black solid;
     margin-top: 10px;
 }
+
+.error {
+    font-size: 12px;
+}

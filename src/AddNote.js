@@ -5,20 +5,16 @@ import NoteContext from './NoteContext'
 export default class AddNote extends React.Component {
     constructor(props) {
         super(props);
-            this.state = {
-            noteName: {
-                value: '',
-                touched: false,
-            },
-            content: {
-                value: '',
-                touched: false
-            },
-            folder: {
-                value: '',
-                touched: false
-            }
-        };
+        this.state = {
+            noteName: '',
+            touched: false,
+
+            content: '',
+            touched: false,
+
+            folder: '',
+            touched: false
+        }
     }
 
     updateName(noteName) {
@@ -49,11 +45,11 @@ export default class AddNote extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        //const folderId = folder.selected => folderId
+
         const newNote ={
             name: e.target.noteName.value,
             content: e.target.content.value,
-            folderId: e.target.folderId.value,
+            folderId: e.target.folder.value,
             modified: new Date(),
         }
 
@@ -70,8 +66,8 @@ export default class AddNote extends React.Component {
             return res.json()
             })
             .then(note => {
-            this.context.addNote(note)
-            this.props.history.push(`/folder/${note.folderId}`)
+                this.context.addNote(note)
+                this.props.history.push(`/folder/${note.folderId}`)
             })
             .catch(error => {
             console.error({ error })
@@ -79,7 +75,7 @@ export default class AddNote extends React.Component {
     }
         
     validateName() {
-        const noteName = this.state.noteName.value.trim();
+        const noteName = this.state.noteName.toString().trim();
         if (noteName.length === 0) {
             return 'Name is required';
         } else  if (noteName.length < 3) {
@@ -88,7 +84,7 @@ export default class AddNote extends React.Component {
     }
 
     validateContent() {
-        const content = this.state.content.value.trim();
+        const content = this.state.content.toString().trim();
         if (content.length === 0) {
             return 'Content is required';
         } else  if (content.length < 10 || content.length > 200) {
@@ -97,9 +93,9 @@ export default class AddNote extends React.Component {
     }
 
     validateFolder() {
-        const folder = this.state.folder.value.trim();
-        if ( folder.name === 'Select Folder') {
-            return 'Folder selection is required'
+        const folderId = this.state.folder.toString().trim();
+        if (!folderId) {
+            return '*Folder selection is required'
         }
     }
 
@@ -120,7 +116,7 @@ export default class AddNote extends React.Component {
                             name='noteName'
                             onChange={e => this.updateName(e.target.value)}
                         />
-                        {this.state.noteName.touched && <ValidationError message={noteNameError} />}
+                        {this.state.touched && <ValidationError message={noteNameError} />}
                     </div>
                     <div className='content-area'>
                         <label htmlFor='content'>Content:</label>
@@ -131,13 +127,14 @@ export default class AddNote extends React.Component {
                                 name='content'
                                 onChange={e => this.updateContent(e.target.value)}
                             />
-                        {this.state.content.touched && <ValidationError message={contentError} />}
+                        {this.state.touched && <ValidationError message={contentError} />}
                     </div>
                     <div>
                         <label htmlFor='folder'>Folder:</label>
                         <select 
                             className='folder-select'
                             name = 'folder'
+                            id = 'folder'
                             onChange={e => this.updateFolder(e.target.value)}
                         >
                             <option>Select Folder</option>
@@ -147,10 +144,11 @@ export default class AddNote extends React.Component {
                             </option>
                             )}
 
-                        {this.state.folder.touched && <ValidationError message={folderError} />}
+                        {this.state.touched}
                         </select>
                     </div>
                     <div>
+                    <ValidationError message={folderError} />
                     <button 
                         type='submit' 
                         className='addNote-button'

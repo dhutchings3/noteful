@@ -7,6 +7,7 @@ import NotePageMain from './NotePageMain';
 import NoteContext from './NoteContext';
 import AddNote from './AddNote'
 import AddFolder from './AddFolder'
+import NoteError from './NoteError'
 import './App.css';
 
 class App extends Component {
@@ -33,8 +34,6 @@ class App extends Component {
             })
             .then(([notes, folders]) => {
                 this.setState({notes, folders});
-                console.log('notes: ', notes)
-                console.log('folders: ', folders)
             })
             .catch(error => {
                 console.error({ error });
@@ -48,7 +47,6 @@ class App extends Component {
     };
 
     addFolder = (folder) => {
-        console.log(folder)
         let newFolders = this.state.folders; 
         newFolders.push(folder)
         this.setState({
@@ -57,7 +55,6 @@ class App extends Component {
     }
 
     addNote = (note) => {
-        console.log(note)
         let newNotes = this.state.notes;
         newNotes.push(note)
         this.setState({
@@ -129,6 +126,7 @@ class App extends Component {
         };
         return (
             <NoteContext.Provider value={contextValue}>
+            <NoteError>
             <div className="App">
         
                 <nav className="App__nav">
@@ -144,6 +142,7 @@ class App extends Component {
                     {this.renderMainRoutes()}
                 </main>
             </div>
+            </NoteError>
             </NoteContext.Provider>
         )
     }
