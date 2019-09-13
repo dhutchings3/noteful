@@ -21,49 +21,63 @@ export default class AddNote extends React.Component {
         };
     }
 
-    static defaultProps ={
-        onUpdateNote: () => {},
-      }
-
-    static contextType = NoteContext;
-
     updateName(noteName) {
-        this.setState({ noteName: { value: noteName, touched: true } });
+        this.setState({ 
+            noteName: noteName,
+            touched: true, 
+        })        
     }
 
     updateContent(content) {
-        this.setState({ content: { value: content, touched: true } });
+        this.setState({ 
+            content: content, 
+            touched: true, 
+        });
+    }
+    
+    updateFolder(folder) {
+        this.setState({ 
+            folder: folder, 
+            touched: true,
+        });
     }
 
-    updateFolder(folder) {
-        this.setState({ folder: { value: folder, touched: true } });
+    static defaultProps = {
+        addNote: () => {},
     }
+    static contextType = NoteContext;
 
     handleSubmit(e) {
         e.preventDefault();
         //const folderId = folder.selected => folderId
-        const { noteName, content, folder }  = this.state;
-
-        console.log(noteName.value, folder.value, content.value)
+        const newNote ={
+            name: e.target.noteName.value,
+            content: e.target.content.value,
+            folderId: e.target.folderId.value,
+            modified: new Date(),
+        }
 
         fetch(`http://localhost:9090/notes`, {
             method: 'POST',
-            body: JSON.stringify ({
-                name: noteName.value,
-                //modified: Date.now(),
-                folderId: folder.value,
-                content: content.value
+            headers: {
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify (newNote)
             })
-        })
-            .then(response => response.json())
-            .then(responseJson => {
-                console.log('responseJson', responseJson)
-            this.context.addNote(responseJson)
-            this.props.history.goBack()
-        })
-        
+            .then(res => {
+            if (!res.ok)
+                return res.json().then(e => Promise.reject(e))
+            return res.json()
+            })
+            .then(note => {
+            this.context.addNote(note)
+            this.props.history.push(`/folder/${note.folderId}`)
+            })
+            .catch(error => {
+            console.error({ error })
+            })
     }
-
+        
     validateName() {
         const noteName = this.state.noteName.value.trim();
         if (noteName.length === 0) {
@@ -128,7 +142,9 @@ export default class AddNote extends React.Component {
                         >
                             <option>Select Folder</option>
                             {folders.map(folder=>
-                            <option value = {folder.id}>{folder.name}</option>
+                            <option value = {folder.id}>
+                            {folder.name}
+                            </option>
                             )}
 
                         {this.state.folder.touched && <ValidationError message={folderError} />}

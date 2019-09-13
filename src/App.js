@@ -26,7 +26,10 @@ class App extends Component {
                 if (!foldersRes.ok)
                     return foldersRes.json().then(e => Promise.reject(e));
 
-                return Promise.all([notesRes.json(), foldersRes.json()]);
+                return Promise.all([
+                    notesRes.json(), 
+                    foldersRes.json()
+                ])
             })
             .then(([notes, folders]) => {
                 this.setState({notes, folders});
@@ -34,8 +37,8 @@ class App extends Component {
                 console.log('folders: ', folders)
             })
             .catch(error => {
-                console.error({error});
-            });
+                console.error({ error });
+            })
     }
 
     deleteNote = noteId => {
@@ -44,19 +47,19 @@ class App extends Component {
         });
     };
 
-    updateFolder = (name, id ) => {
-        console.log('updateFolder', id)
-        let newFolders = this.state.folders;
-        newFolders.push({id, name})
+    addFolder = (folder) => {
+        console.log(folder)
+        let newFolders = this.state.folders; 
+        newFolders.push(folder)
         this.setState({
             folders: newFolders
         });
     }
 
-    addNote = (id, noteName, folderId, content) => {
-        console.log(id, noteName, folderId, content)
+    addNote = (note) => {
+        console.log(note)
         let newNotes = this.state.notes;
-        newNotes.push({id, noteName, folderId, content})
+        newNotes.push(note)
         this.setState({
             notes: newNotes
         });
@@ -73,7 +76,18 @@ class App extends Component {
                         component={NoteListNav}
                     />
                 ))}
-                <Route path='/note/:noteId' component={NotePageNav} />
+                <Route 
+                    path='/note/:noteId' 
+                    component={NotePageNav} 
+                />
+                <Route
+                    path='/add-folder'
+                    component={NotePageNav}
+                />
+                 <Route
+                    path='/add-note'
+                    component={NotePageNav}
+                />
             </>
         );
     }
@@ -89,36 +103,49 @@ class App extends Component {
                         component={NoteListMain}
                     />
                 ))}
-                <Route path='/note/:noteId' component={NotePageMain} />
-                <Route path='/add-note' component={AddNote} />
-                <Route path='/add-folder' component={AddFolder} />
+                <Route 
+                    path='/note/:noteId' 
+                    component={NotePageMain} 
+                />
+                <Route 
+                    path='/add-note' 
+                    component={AddNote} 
+                />
+                <Route 
+                path='/add-folder' 
+                component={AddFolder} 
+                />
             </>
         );
     }
 
     render() {
-        console.log(this.state.folders)
         const contextValue = {
             folders: this.state.folders,
             notes: this.state.notes,
             deleteNote: this.deleteNote,
             addNote: this.addNote,
-            updateFolder: this.updateFolder
+            addFolder: this.addFolder
         };
         return (
             <NoteContext.Provider value={contextValue}>
             <div className="App">
         
-                <nav className="App__nav">{this.renderNavRoutes()}</nav>
+                <nav className="App__nav">
+                    {this.renderNavRoutes()}
+                </nav>
                 <header className="App__header">
                     <h1>
-                        <Link to="/">Noteful</Link>{' '}
+                        <Link to="/">Noteful</Link>
+                        {' '}
                     </h1>
                 </header>
-                <main className="App__main">{this.renderMainRoutes()}</main>
+                <main className="App__main">
+                    {this.renderMainRoutes()}
+                </main>
             </div>
             </NoteContext.Provider>
-        );
+        )
     }
 }
 

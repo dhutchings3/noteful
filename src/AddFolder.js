@@ -20,36 +20,42 @@ export default class AddFolder extends React.Component {
     static contextType = NoteContext;
 
     updateName(folderName) {
-        this.setState({ folderName: { value: folderName, touched: true } });
+        this.setState({ 
+            folderName: folderName, 
+            touched: true } 
+        );
     }
-
     handleSubmit(e) {
         e.preventDefault();
-        const folderName = this.state
-        console.log('Folder Name: ', folderName);
-        
+        const newFolder = {
+            name: e.target['folderName'].value
+        }        
         fetch(`http://localhost:9090/folders`, {
             method: 'POST',
-            body: JSON.stringify({ name: folderName })
-        })
-            .then(response => response.json())
-            .then(responseJson => {
-                console.log('responseJson', responseJson.id, folderName.folderName.value)
-                this.context.updateFolder(folderName.folderName.value, responseJson.id)
-                this.props.onUpdateFolder(folderName)
-                this.props.history.goBack();
-        })
-        //this.props.history.goBack();
-        //this.context.updateFolder(folderName, responseJson.Id)
-        //this.props.onUpdateFolder(folderName)
-        //this.props.history.goBack();
+            headers: {
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify(newFolder),
+            })
+            .then(res => {
+                if (!res.ok)
+                  return res.json().then(e => Promise.reject(e))
+                return res.json()
+            })
+            .then(folder => {
+                this.context.addFolder(folder)
+                this.props.history.push(`/folder/${folder.id}`)
+            })
+            .catch(error => {
+                console.error({ error })
+            })
     }
 
     validateName() {
-        const folderName = this.state.folderName.value.trim();
-        if (folderName.length === 0) {
+        const name = this.state.folderName.value.trim();
+        if (name.length === 0) {
             return 'Name is required';
-        } else  if (folderName.length < 3) {
+        } else  if (name.length < 3) {
             return 'Name must be at least 3 characters long';
         }
     }
@@ -76,7 +82,8 @@ export default class AddFolder extends React.Component {
                             this.validateName()
                         }
                     >
-                        Save</button>
+                        Add
+                    </button>
                 </form>
             </div>
         )
