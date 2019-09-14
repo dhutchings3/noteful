@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import { NavLink } from 'react-router-dom'
 import './App.css';
 import NoteContext from './NoteContext'
@@ -24,13 +24,15 @@ export default class NoteListNav extends React.Component {
                             </li>
                         )}
                     </ul>
+                    <Fragment>
                     <NavLink
-                    className='addFolder'
-                    to={`/add-folder`}
-                    type='button'
+                        className='addFolder'
+                        to={`/add-folder`}
+                        type='button'
                     >
                         Add Folder
                     </NavLink>
+                    </Fragment>
                 </div>
         )
     }

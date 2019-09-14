@@ -34,13 +34,13 @@ export default class NoteListMain extends React.Component {
                         />
                     </li>
                     )}
+                </ul>
                     <NavLink
                         className='addNote'
                         to={`/add-note`}
                     >
                         Add Note
                     </NavLink>
-                </ul>
             </div>
         )   
     }
