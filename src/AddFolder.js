@@ -70,6 +70,8 @@ export default class AddFolder extends React.Component {
                         id='folderName' 
                         defaultValue='Folder name' 
                         name='folderName'
+                        aria-label='Folder name goes here'
+                        aria-required='true'
                         onChange={e => this.updateName(e.target.value)}
                     />
                     {this.state.touched && <ValidationError message={nameError} />}

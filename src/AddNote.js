@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import ValidationError from './ValidationError'
 import NoteContext from './NoteContext'
+
 
 export default class AddNote extends React.Component {
     constructor(props) {
@@ -107,13 +108,15 @@ export default class AddNote extends React.Component {
         return (
                 <form className='add-note-form' onSubmit={(e)=> this.handleSubmit(e)}>
                     <h2>Add Note</h2>
-                    <div className='note-name'>
+                    <div>
                         <label htmlFor='note'>Note Name:</label>
                         <input 
                             type='text' 
                             id='noteName' 
                             defaultValue='Note name' 
                             name='noteName'
+                            aria-label='Name of note'
+                            aria-required='true'
                             onChange={e => this.updateName(e.target.value)}
                         />
                         {this.state.touched && <ValidationError message={noteNameError} />}
@@ -125,6 +128,8 @@ export default class AddNote extends React.Component {
                                 id='content' 
                                 defaultValue='Note context goes here' 
                                 name='content'
+                                aria-label='Content of the note being added'
+                                aria-required='true'
                                 onChange={e => this.updateContent(e.target.value)}
                             />
                         {this.state.touched && <ValidationError message={contentError} />}
@@ -135,6 +140,8 @@ export default class AddNote extends React.Component {
                             className='folder-select'
                             name = 'folder'
                             id = 'folder'
+                            aria-label='Folder that the new note will belong to'
+                            aria-required='true'
                             onChange={e => this.updateFolder(e.target.value)}
                         >
                             <option>Select Folder</option>
@@ -147,7 +154,7 @@ export default class AddNote extends React.Component {
                         {this.state.touched}
                         </select>
                     </div>
-                    <div>
+                    <Fragment>
                     <ValidationError message={folderError} />
                     <button 
                         type='submit' 
@@ -160,7 +167,7 @@ export default class AddNote extends React.Component {
                     >
                         Save
                     </button>
-                    </div>
+                    </Fragment>
                 </form>
         )
     }
