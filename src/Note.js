@@ -52,10 +52,6 @@ export default class Note extends React.Component {
           >
           Delete Note
           </button>
-          <div className='Date'>
-              <div className='Note-Date-modified'>
-              </div>
-          </div>
         </div>
       )
     }

@@ -108,39 +108,39 @@ export default class AddNote extends React.Component {
         return (
                 <form className='add-note-form' onSubmit={(e)=> this.handleSubmit(e)}>
                     <h2>Add Note</h2>
-                    <div>
+                    <Fragment>
                         <label htmlFor='note'>Note Name:</label>
                         <input 
                             type='text' 
                             id='noteName' 
                             defaultValue='Note name' 
                             name='noteName'
-                            aria-label='Name of note'
+                            aria-label='Name of note goes here'
                             aria-required='true'
                             onChange={e => this.updateName(e.target.value)}
                         />
                         {this.state.touched && <ValidationError message={noteNameError} />}
-                    </div>
-                    <div className='content-area'>
+                    </Fragment>
+                    <Fragment className='content-area'>
                         <label htmlFor='content'>Content:</label>
                             <input 
                                 type='text' 
                                 id='content' 
                                 defaultValue='Note context goes here' 
                                 name='content'
-                                aria-label='Content of the note being added'
+                                aria-label='Content of note goes here'
                                 aria-required='true'
                                 onChange={e => this.updateContent(e.target.value)}
                             />
                         {this.state.touched && <ValidationError message={contentError} />}
-                    </div>
-                    <div>
+                    </Fragment>
+                    <Fragment>
                         <label htmlFor='folder'>Folder:</label>
                         <select 
                             className='folder-select'
                             name = 'folder'
                             id = 'folder'
-                            aria-label='Folder that the new note will belong to'
+                            aria-label='Folder that note should belong to is selected here'
                             aria-required='true'
                             onChange={e => this.updateFolder(e.target.value)}
                         >
@@ -153,7 +153,7 @@ export default class AddNote extends React.Component {
 
                         {this.state.touched}
                         </select>
-                    </div>
+                    </Fragment>
                     <Fragment>
                     <ValidationError message={folderError} />
                     <button 

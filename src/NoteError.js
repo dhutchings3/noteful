@@ -1,11 +1,4 @@
 import React, {Component} from 'react';
-import NoteListNav from './NoteListNav';
-import NotePageNav from './NotePageNav';
-import NoteListMain from './NoteListMain';
-import NotePageMain from './NotePageMain';
-import NoteContext from './NoteContext';
-import AddNote from './AddNote'
-import AddFolder from './AddFolder'
 
 export default class NoteError extends Component {
     constructor(props) {

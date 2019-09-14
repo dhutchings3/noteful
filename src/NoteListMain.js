@@ -23,7 +23,7 @@ export default class NoteListMain extends React.Component {
         const { notes=[] } = this.context
         const notesForFolder = getNotesForFolder(notes, folderId)
         return (
-            <section className='Note-List'>
+            <div className='Note-List'>
                 <ul>
                     {notesForFolder.map(note => 
                     <li key={note.id}>
@@ -35,13 +35,13 @@ export default class NoteListMain extends React.Component {
                     </li>
                     )}
                     <NavLink
-                    className='addNote'
-                    to={`/add-note`}
+                        className='addNote'
+                        to={`/add-note`}
                     >
                         Add Note
                     </NavLink>
                 </ul>
-            </section>
+            </div>
         )   
     }
 }
