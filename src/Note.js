@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import config from './config'
 import './App.css';
 import NoteContext from './NoteContext';
 //import { format } from 'date-fns'

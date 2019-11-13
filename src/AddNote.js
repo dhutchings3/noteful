@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import ValidationError from './ValidationError'
 import NoteContext from './NoteContext'
+import config from './config'
 
 
 export default class AddNote extends React.Component {

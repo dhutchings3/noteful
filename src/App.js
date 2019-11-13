@@ -8,6 +8,7 @@ import NoteContext from './NoteContext';
 import AddNote from './AddNote'
 import AddFolder from './AddFolder'
 import NoteError from './NoteError'
+import config from './config'
 import './App.css';
 
 class App extends Component {

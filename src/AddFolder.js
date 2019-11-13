@@ -1,6 +1,7 @@
 import React from 'react'
 import ValidationError from './ValidationError'
 import NoteContext from './NoteContext'
+import config from './config'
 
 export default class AddFolder extends React.Component {
     constructor(props) {
@@ -28,7 +29,7 @@ export default class AddFolder extends React.Component {
         const newFolder = {
             name: e.target['folderName'].value
         }        
-        fetch(`${config.API_ENDPOINT}, {
+        fetch(`${config.API_ENDPOINT}`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
