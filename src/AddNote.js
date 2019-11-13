@@ -54,7 +54,7 @@ export default class AddNote extends React.Component {
             modified: new Date(),
         }
 
-        fetch(`http://localhost:9090/notes`, {
+        fetch(`${config.API_ENDPOINT}`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
