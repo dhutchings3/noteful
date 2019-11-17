@@ -29,7 +29,7 @@ export default class AddFolder extends React.Component {
         const newFolder = {
             name: e.target['folderName'].value
         }        
-        fetch(`${config.API_ENDPOINT}`, {
+        fetch(`${config.API_ENDPOINT}/folders`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

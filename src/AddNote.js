@@ -55,7 +55,7 @@ export default class AddNote extends React.Component {
             modified: new Date(),
         }
 
-        fetch(`${config.API_ENDPOINT}`, {
+        fetch(`${config.API_ENDPOINT}/notes`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
@@ -109,7 +109,7 @@ export default class AddNote extends React.Component {
         return (
                 <form className='add-note-form' onSubmit={(e)=> this.handleSubmit(e)}>
                     <h2>Add Note</h2>
-                    <Fragment>
+                    {/* <Fragment> */}
                         <label htmlFor='note'>Note Name:</label>
                         <input 
                             type='text' 
@@ -121,8 +121,8 @@ export default class AddNote extends React.Component {
                             onChange={e => this.updateName(e.target.value)}
                         />
                         {this.state.touched && <ValidationError message={noteNameError} />}
-                    </Fragment>
-                    <Fragment className='content-area'>
+                    {/* </Fragment> */}
+                    {/* <Fragment className='content-area'> */}
                         <label htmlFor='content'>Content:</label>
                             <input 
                                 type='text' 
@@ -134,8 +134,8 @@ export default class AddNote extends React.Component {
                                 onChange={e => this.updateContent(e.target.value)}
                             />
                         {this.state.touched && <ValidationError message={contentError} />}
-                    </Fragment>
-                    <Fragment>
+                    {/* </Fragment> */}
+                    {/* <Fragment> */}
                         <label htmlFor='folder'>Folder:</label>
                         <select 
                             className='folder-select'
@@ -154,7 +154,7 @@ export default class AddNote extends React.Component {
 
                         {this.state.touched}
                         </select>
-                    </Fragment>
+                    {/* </Fragment> */}
                     <Fragment>
                     <ValidationError message={folderError} />
                     <button 
