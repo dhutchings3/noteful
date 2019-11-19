@@ -14,14 +14,14 @@ export default class NoteListMain extends React.Component {
     static contextType = NoteContext;
 
     render() {
-        const getNotesForFolder = (notes=[], folderId) => (
-            (!folderId)
+        const getNotesForFolder = (notes=[], folder_id) => (
+            (!folder_id)
               ? notes
-              : notes.filter(note => note.folderId === folderId)
+              : notes.filter(note => note.folder_id === parseInt(folder_id))
         )
-        const { folderId } = this.props.match.params
+        const { folder_id } = this.props.match.params
         const { notes=[] } = this.context
-        const notesForFolder = getNotesForFolder(notes, folderId)
+        const notesForFolder = getNotesForFolder(notes, folder_id)
         return (
             <div className='Note-List'>
                 <ul>

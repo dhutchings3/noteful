@@ -51,7 +51,7 @@ export default class AddNote extends React.Component {
         const newNote ={
             name: e.target.noteName.value,
             content: e.target.content.value,
-            folderId: e.target.folder.value,
+            folder_id: e.target.folder.value,
             modified: new Date(),
         }
 
@@ -68,13 +68,17 @@ export default class AddNote extends React.Component {
             return res.json()
             })
             .then(note => {
+                console.log(note.folder_id)
                 this.context.addNote(note)
-                this.props.history.push(`/folder/${note.folderId}`)
+                this.props.history.push('/')
+                // this.props.history.push(`/folder/${note.folder_id}`)
             })
             .catch(error => {
             console.error({ error })
             })
     }
+
+    
         
     validateName() {
         const noteName = this.state.noteName.toString().trim();
@@ -95,8 +99,8 @@ export default class AddNote extends React.Component {
     }
 
     validateFolder() {
-        const folderId = this.state.folder.toString().trim();
-        if (!folderId) {
+        const folder = this.state.folder.toString().trim();
+        if (!folder) {
             return '*Folder selection is required'
         }
     }
@@ -147,13 +151,14 @@ export default class AddNote extends React.Component {
                         >
                             <option>Select Folder</option>
                             {folders.map(folder=>
-                            <option value = {folder.id}>
+                            <option key={folder.id} value={folder.id} name='folder_id'>
                             {folder.name}
                             </option>
                             )}
 
                         {this.state.touched}
                         </select>
+
                     {/* </Fragment> */}
                     <Fragment>
                     <ValidationError message={folderError} />

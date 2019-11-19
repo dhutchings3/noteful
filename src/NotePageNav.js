@@ -14,14 +14,14 @@ export default class NotePageNav extends React.Component {
   static contextType = NoteContext;
   
   render() {
-    const findFolder = (folders=[], folderId) =>
-    folders.find(folder => folder.id === folderId)
+    const findFolder = (folders=[], folder_id) =>
+    folders.find(folder => folder.id === folder_id)
     const findNote = (notes=[], noteId) =>
     notes.find(note => note.id === noteId)
     const { notes, folders, } = this.context
     const { noteId } = this.props.match.params
     const note = findNote(notes, noteId) || {}
-    const folder = findFolder(folders, note.folderId)
+    const folder = findFolder(folders, note.folder_id)
     return (
       <div className='NotePageNav'>
         <button 
